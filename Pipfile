@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+koinly = {editable = true, path = "."}
+
+[dev-packages]
+pre-commit = "~=2.20"
+
+[requires]
+python_version = "3.10"
