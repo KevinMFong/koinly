@@ -18,6 +18,7 @@ class ReportTransaction(NamedTuple):
     fee_currency: Optional[str] = None
     fee_value_usd: Optional[float] = None
     gain_usd: Optional[float] = None
+    id: Optional[str] = None
     label: Optional[str] = None  # TODO convert to enum
     received_amount: Optional[float] = None
     received_cost_basis: Optional[float] = None
@@ -36,6 +37,7 @@ class ReportTransactionSchema(Schema):
     class Meta:
         ordered = True
 
+    id = fields.String(required=False)
     date = fields.DateTime(required=True)
     type = fields.String(required=True)
     label = fields.String(required=False, missing=None)

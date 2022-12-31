@@ -9,6 +9,7 @@ from .transaction import ReportTransactionSchema
 from .config import DataDirectory
 
 FIELDS = [
+    "id",
     "date",
     "type",
     "label",
@@ -76,6 +77,7 @@ def process_transactions():
         txn = {}
         if raw_txn["ignored"] is True:
             continue
+        txn["id"] = raw_txn["id"]
         txn["date"] = str(parse(raw_txn["date"]))
         txn["type"] = raw_txn["type"]
         txn["label"] = raw_txn["label"]
