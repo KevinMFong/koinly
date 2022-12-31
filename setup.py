@@ -41,4 +41,9 @@ setup(
     package_dir={"": "src"},
     url="https://github.com/KevinMFong/koinly",
     version=ABOUT["__version__"],
+    entry_points={
+        'console_scripts': [
+            'koinly=koinly.cli:app',
+        ],
+    },
 )
