@@ -1,14 +1,21 @@
-from collections import defaultdict
-
-import typer
-
 import csv
 import json
+from collections import defaultdict, UserDict
 
+import typer
 from dateutil.parser import parse
 
-from .transaction import ReportTransactionSchema
 from .config import DataDirectory
+from .transaction import ReportTransactionSchema
+
+
+class Row(UserDict):
+    def get_none_if_zero(self, key):
+        value = self.data[key]
+        if value in {0, "0", 0.0, "0.0"}:
+            return None
+        return value
+
 
 FIELDS = [
     "id",
@@ -39,17 +46,22 @@ def _get_from_data(txn_dict):
     from_ = txn_dict.get("from")
     if from_ is None:
         return None, None, None, None
-    return from_["wallet"]["name"], from_["amount"], from_["currency"]["symbol"], from_["cost_basis"]
+    wallet = from_["wallet"]["name"]
+    amount = from_["amount"]
+    currency = from_["currency"]["symbol"]
+    cost_basis = Row(from_).get_none_if_zero("cost_basis")
+    return wallet, amount, currency, cost_basis
 
 
 def _get_to_data(txn_dict):
     to = txn_dict.get("to")
     if to is None:
         return None, None, None, None
-    cost_basis = to["cost_basis"]
-    if cost_basis == "0.0":
-        cost_basis = None
-    return to["wallet"]["name"], to["amount"], to["currency"]["symbol"], cost_basis
+    wallet = to["wallet"]["name"]
+    amount = to["amount"]
+    currency = to["currency"]["symbol"]
+    cost_basis = Row(to).get_none_if_zero("cost_basis")
+    return wallet, amount, currency, cost_basis
 
 
 def _get_fee_data(txn_dict):
@@ -100,9 +112,9 @@ def process_transactions():
             fee_amount, fee_currency = _get_fee_data(raw_txn)
             txn["fee_amount"] = fee_amount
             txn["fee_currency"] = fee_currency
-            txn["fee_value_usd"] = raw_txn["fee_value"]
+            txn["fee_value_usd"] = Row(raw_txn).get_none_if_zero("fee_value")
 
-            txn["gain_usd"] = raw_txn["gain"]
+            txn["gain_usd"] = Row(raw_txn).get_none_if_zero("gain")
             txn["net_value_usd"] = raw_txn["net_value"]
             txn["tx_src"] = raw_txn["txsrc"]
             txn["tx_dest"] = raw_txn["txdest"]
