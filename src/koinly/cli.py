@@ -1,5 +1,5 @@
 import typer
-
+from .process_transactions import process_transactions
 
 app = typer.Typer()
 
@@ -11,9 +11,4 @@ def callback():
     """
 
 
-@app.command(name="process-transactions")
-def process_transactions():
-    """
-    Process raw transaction data.
-    """
-    typer.echo("Process raw transaction data")
+app.command(name="process-transactions")(process_transactions)
