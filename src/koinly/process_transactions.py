@@ -71,19 +71,26 @@ def _get_fee_data(txn_dict):
     return fee["amount"], fee["currency"]["symbol"]
 
 
-def process_transactions():
+def process_transactions(
+        start_date: str = typer.Option("1900-01-01", help="Partition start date in YYYY-MM-DD format."),
+        end_date: str = typer.Option("2100-01-01", help="Partition end date in YYYY-MM-DD format."),
+):
     """
     Process raw transaction data.
     """
     typer.echo("Processing raw transaction data.")
     raw_transactions_map = defaultdict(list)
     bronze_files = DataDirectory.BRONZE.value.joinpath("koinly_transactions").glob("**/*.json")
-    for bronze_file in bronze_files:
-        typer.echo(f"Processing {bronze_file.parent.name}/{bronze_file.name}")
-        with open(bronze_file) as file:
-            file_rows = file.readlines()
-        for row in file_rows:
-            raw_transactions_map[f"{bronze_file.parent.name}"].extend(json.loads(row)["transactions"])
+    for bronze_file in sorted(bronze_files):
+        date_partition = bronze_file.parent.name
+        if start_date <= date_partition <= end_date:
+            typer.echo(f"Processing {date_partition}/{bronze_file.name}")
+            with open(bronze_file) as file:
+                file_rows = file.readlines()
+            for row in file_rows:
+                raw_transactions_map[f"{date_partition}"].extend(json.loads(row)["transactions"])
+        else:
+            typer.echo(f"Skipping {date_partition}/{bronze_file.name}")
 
     report_transactions_map = defaultdict(list)
     schema = ReportTransactionSchema()
