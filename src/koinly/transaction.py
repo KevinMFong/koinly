@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import NamedTuple, Optional, Any
+from typing import Any, NamedTuple, Optional
 
 from marshmallow import Schema, fields, post_load
 
