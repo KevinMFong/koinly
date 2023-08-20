@@ -2,31 +2,31 @@
 default_language_version:
   python: python3.10
 
-default_stages: [pre-push]
+default_stages: [pre-push, manual]
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
   hooks:
   - id: check-yaml
-    stages: [pre-commit]
+    stages: [pre-commit, manual]
   - id: end-of-file-fixer
-    stages: [pre-commit]
+    stages: [pre-commit, manual]
   - id: trailing-whitespace
-    stages: [pre-commit]
+    stages: [pre-commit, manual]
 - repo: https://github.com/psf/black
   rev: 23.7.0
   hooks:
   - id: black
-    stages: [pre-push]
+    stages: [pre-push, manual]
     args: [--line-length, '109']
 - repo: https://github.com/PyCQA/isort
   rev: 5.12.0
   hooks:
   - id: isort
-    stages: [pre-push]
+    stages: [pre-push, manual]
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.10.1
   hooks:
   - id: pyupgrade
-    stages: [pre-push]
+    stages: [pre-push, manual]
