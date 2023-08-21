@@ -1,6 +1,6 @@
 import csv
 import json
-from collections import defaultdict, UserDict
+from collections import UserDict, defaultdict
 
 import typer
 from dateutil.parser import parse
@@ -72,8 +72,8 @@ def _get_fee_data(txn_dict):
 
 
 def process_transactions(
-        start_date: str = typer.Option("1900-01-01", help="Partition start date in YYYY-MM-DD format."),
-        end_date: str = typer.Option("2100-01-01", help="Partition end date in YYYY-MM-DD format."),
+    start_date: str = typer.Option("1900-01-01", help="Partition start date in YYYY-MM-DD format."),
+    end_date: str = typer.Option("2100-01-01", help="Partition end date in YYYY-MM-DD format."),
 ):
     """
     Process raw transaction data.

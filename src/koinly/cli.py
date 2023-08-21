@@ -1,4 +1,5 @@
 import typer
+
 from .process_transactions import process_transactions
 
 app = typer.Typer()

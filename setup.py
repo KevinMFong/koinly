@@ -2,8 +2,8 @@
 
 """The setup script."""
 import os
-from setuptools import setup, find_packages
 
+from setuptools import find_packages, setup
 
 NAME = "koinly"
 VERSION = os.environ.get(f"{NAME.upper()}_PACKAGE_VERSION")
@@ -42,8 +42,8 @@ setup(
     url="https://github.com/KevinMFong/koinly",
     version=ABOUT["__version__"],
     entry_points={
-        'console_scripts': [
-            'koinly=koinly.cli:app',
+        "console_scripts": [
+            "koinly=koinly.cli:app",
         ],
     },
 )
