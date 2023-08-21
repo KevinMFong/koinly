@@ -1,0 +1,5 @@
+[tool.isort]
+profile = "black"
+known_first_party = ["koinly"]
+line_length = 88
+force_single_line = true

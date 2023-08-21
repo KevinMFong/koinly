@@ -1,6 +1,7 @@
 import csv
 import json
-from collections import UserDict, defaultdict
+from collections import UserDict
+from collections import defaultdict
 
 import typer
 from dateutil.parser import parse

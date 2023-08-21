@@ -1,7 +1,11 @@
 from datetime import datetime
-from typing import Any, NamedTuple, Optional
+from typing import Any
+from typing import NamedTuple
+from typing import Optional
 
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema
+from marshmallow import fields
+from marshmallow import post_load
 
 __all__ = (
     "ReportTransaction",

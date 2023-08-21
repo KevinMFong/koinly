@@ -3,7 +3,8 @@
 """The setup script."""
 import os
 
-from setuptools import find_packages, setup
+from setuptools import find_packages
+from setuptools import setup
 
 NAME = "koinly"
 VERSION = os.environ.get(f"{NAME.upper()}_PACKAGE_VERSION")
