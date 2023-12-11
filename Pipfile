@@ -7,7 +7,7 @@ name = "pypi"
 koinly = {editable = true, path = "."}
 
 [dev-packages]
-pre-commit = "~=3.4"
+pre-commit = "~=3.6"
 
 [requires]
 python_version = "3.10"
