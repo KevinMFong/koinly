@@ -34,7 +34,7 @@ setup(
         "click~=8.1",
         "marshmallow~=3.19",
         "python-dateutil~=2.8",
-        "requests~=2.28",
+        "requests~=2.32",
         "typer[all]~=0.7",
     ],
     license="MIT license",
