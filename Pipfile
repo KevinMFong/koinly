@@ -7,7 +7,7 @@ name = "pypi"
 koinly = {editable = true, path = "."}
 
 [dev-packages]
-pre-commit = "~=3.8"
+pre-commit = "~=4.2"
 pytest = "*"
 
 [requires]
